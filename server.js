@@ -42,6 +42,25 @@ app.get('/getRestaurants', function(req, res){
     res.send({test:"food"});
 });
 
+app.get('/getFoodItems', function(req, res){ 
+    console.log(req.query.restaurant);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
+});
+
+app.get('/makeOrder', function(req, res){ 
+    console.log(req.body.restaurant);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"giveOrder"});
+});
+
+app.get('/getOrders', function(req, res){ 
+    console.log();
+    console.log(req.query.restaurant);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
+});
+
 app.post('/getrate', function(req, res){ 
     console.log(req.body.weight);
     res.render('getRate.ejs',{rate:calculateRate(req.body.weight, req.body.type)});
