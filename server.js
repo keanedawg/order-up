@@ -25,25 +25,21 @@ var mailOptions = {
     from: '"Firebase Database Quickstart" <noreply@firebase.com>',
     to: email,
     subject: 'New star!',
-    text: 'One of your posts has received a new star!'
+    text: 'Thank you for your purchase!\nYour order will be ready soon!'
   };
-  mailTransport.sendMail(mailOptions).then(function() {
-    console.log('New star email notification sent');
-  });
+//   mailTransport.sendMail(mailOptions).then(function() {
+//     console.log('New star email notification sent');
+//   });
 
 
-
-
-
-
-
-app.get('/', function(req, res){ 
+app.get('/viewOrders', function(req, res){ 
     res.render('index.ejs',{user: "Great User",title:"homepage"});
 });
 
-app.get('/getrate', function(req, res){ 
+app.get('/getRestaurants', function(req, res){ 
     console.log();
-    res.render('getRate.ejs',{rate:calculateRate(req.query.weight, req.query.type)});
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
 });
 
 app.post('/getrate', function(req, res){ 
