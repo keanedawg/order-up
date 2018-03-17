@@ -8,9 +8,13 @@ app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.set('view engine', 'ejs');
 
-
-
-
+// This is very insecure and I wouldn't do this for a non-school related project
+var admin = require("firebase-admin");
+var serviceAccount = require("./rexburg-order-up-firebase-adminsdk-rgix7-703d627a3b.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://rexburg-order-up.firebaseio.com"
+});
 
 
 
@@ -44,6 +48,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(req, res){ 
     res.render('index.ejs',{user: "Great User",title:"homepage"});
 });
+
 app.get('/getrate', function(req, res){ 
     console.log();
     res.render('getRate.ejs',{rate:calculateRate(req.query.weight, req.query.type)});
