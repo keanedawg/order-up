@@ -1,6 +1,4 @@
-// I don't even know
-const yabba_dabba_doo = require('express');
-const express = yabba_dabba_doo;
+const express = require('express');
 const app = express();
 
 app.use(express.static('public'));
@@ -10,34 +8,28 @@ app.set('view engine', 'ejs');
 
 // This is very insecure and I wouldn't do this for a non-school related project
 var admin = require("firebase-admin");
+var nodemailer = require("nodemailer");
+
 var serviceAccount = require("./rexburg-order-up-firebase-adminsdk-rgix7-703d627a3b.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://rexburg-order-up.firebaseio.com"
 });
 
+// Throwaway email account
+var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
+var email = 'cameronfife@hotmail.com';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var mailOptions = {
+    from: '"Firebase Database Quickstart" <noreply@firebase.com>',
+    to: email,
+    subject: 'New star!',
+    text: 'One of your posts has received a new star!'
+  };
+  mailTransport.sendMail(mailOptions).then(function() {
+    console.log('New star email notification sent');
+  });
 
 
 
