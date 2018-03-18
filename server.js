@@ -32,18 +32,9 @@ var ref = admin.app().database().ref();
 
 // Throwaway email account
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
-var email = 'cameronfife@hotmail.com';
 
 
-var mailOptions = {
-    from: '"Firebase Database Quickstart" <noreply@firebase.com>',
-    to: email,
-    subject: 'New star!',
-    text: 'Thank you for your purchase!\nYour order will be ready soon!'
-  };
-//   mailTransport.sendMail(mailOptions).then(function() {
-//     console.log('New star email notification sent');
-//   });
+
 
 
 
@@ -63,15 +54,32 @@ app.get('/getFoodItems', function(req, res){
     });
 });
 
+
+// In order to use this, you need to s
 app.post('/makeOrder', function(req, res){ 
     
     var orderObj = {
+                    "created": Date(),
                     "restaurant_id": req.body.restaurant, 
                     "menuItemsOrdered": req.body.foodItem };
+    if (req.body.email != null) {
+        ref.child('Restaurants').child(req.body.restaurant).once('value').then(function (snapshot, err) {
+            var result = snapshot.val();
+            var mailOptions = {
+                from: '"Rexburg Ordering" <noreply@firebase.com>',
+                to: req.body.email,
+                subject: 'Your order to ' + result.name + ' has been placed!',
+                text: 'Thank you for your purchase!\nYour order will be ready soon!'
+            };
+            mailTransport.sendMail(mailOptions).then(function() {
+                console.log('Email notification sent');
+            });
+        });
+    }
     console.log(orderObj);
-    ref.child('Orders').push(orderObj);
+   // ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
-    res.send({test:"giveOrder"});
+    //res.send({test:"giveOrder"});
 });
 
 app.get('/getOrders', function(req, res){ 
