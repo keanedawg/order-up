@@ -64,7 +64,12 @@ app.get('/getFoodItems', function(req, res){
 });
 
 app.post('/makeOrder', function(req, res){ 
-    console.log(req.body);
+    
+    var orderObj = {
+                    "restaurant_id": req.body.restaurant, 
+                    "menuItemsOrdered": req.body.foodItem };
+    console.log(orderObj);
+    ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"giveOrder"});
 });
