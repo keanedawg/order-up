@@ -69,7 +69,7 @@ app.post('/makeOrder', function(req, res){
                 from: '"Rexburg Ordering" <noreply@firebase.com>',
                 to: req.body.email,
                 subject: 'Your order to ' + result.name + ' has been placed!',
-                text: 'Thank you for your purchase!\nYour order will be ready soon!'
+                text: 'Dear ' + req.body.person + ',\n\nThank you for your purchase!\n\nYour order will be ready soon!\n\nRegards,\nRexburg Ordering'
             };
             mailTransport.sendMail(mailOptions).then(function() {
                 console.log('Email notification sent');
