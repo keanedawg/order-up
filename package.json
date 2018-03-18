@@ -1,0 +1,23 @@
+{
+  "name": "order-up",
+  "version": "1.0.0",
+  "description": "Order food bro!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keanedawg/order-up.git"
+  },
+  "keywords": [
+    "food"
+  ],
+  "author": "Cameron Fife",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keanedawg/order-up/issues"
+  },
+  "homepage": "https://github.com/keanedawg/order-up#readme"
+}
