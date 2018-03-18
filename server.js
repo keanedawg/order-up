@@ -8,13 +8,31 @@ app.set('view engine', 'ejs');
 
 // This is very insecure and I wouldn't do this for a non-school related project
 var admin = require("firebase-admin");
+//var firebase = require("firebase");
 var nodemailer = require("nodemailer");
 
 var serviceAccount = require("./rexburg-order-up-firebase-adminsdk-rgix7-703d627a3b.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://rexburg-order-up.firebaseio.com"
+  "authDomain": "rexburg-order-up.firebaseapp.com",
+  "databaseURL": "https://rexburg-order-up.firebaseio.com",
+  "storageBucket": "rexburg-order-up.appspot.com"
 });
+
+var ref = admin.app().database().ref();
+ref.once('value')
+ .then(function (snap) {
+    console.log('snap.val()', snap.val());
+ });
+
+
+// firebase.initializeApp({
+//  "appName": "rexburg-order-up",
+//  "serviceAccount": "./service-account.json",
+//  "authDomain": "rexburg-order-up.firebaseapp.com",
+//  "databaseURL": "rexburg-order-up",
+//  "storageBucket": "rexburg-order-up.appspot.com"
+// });
 
 // Throwaway email account
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
@@ -33,16 +51,20 @@ var mailOptions = {
 
 
 
-app.get('/getRestaurants', function(req, res){ 
-    console.log();
-    res.setHeader('Content-Type', 'application/json');
-    res.send({test:"food"});
+app.get('/getRestaurants', function(req, res) { 
+    ref.child('Restaurants').once('value').then(function (snapshot, err) {
+        console.log(snapshot);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(snapshot);
+    });
 });
 
 app.get('/getFoodItems', function(req, res){ 
-    console.log(req.query.restaurant);
-    res.setHeader('Content-Type', 'application/json');
-    res.send({test:"food"});
+    ref.child('FoodItems').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
+        console.log(snapshot);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(snapshot);
+    });
 });
 
 app.get('/makeOrder', function(req, res){ 
@@ -52,10 +74,11 @@ app.get('/makeOrder', function(req, res){
 });
 
 app.get('/getOrders', function(req, res){ 
-    console.log();
-    console.log(req.query.restaurant);
-    res.setHeader('Content-Type', 'application/json');
-    res.send({test:"food"});
+    ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
+        console.log(snapshot);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(snapshot);
+    });
 });
 
 
