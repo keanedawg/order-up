@@ -33,11 +33,6 @@ var ref = admin.app().database().ref();
 // Throwaway email account
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
 
-
-
-
-
-
 app.get('/getRestaurants', function(req, res) { 
     ref.child('Restaurants').once('value').then(function (snapshot, err) {
         console.log(snapshot);
