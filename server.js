@@ -32,9 +32,6 @@ var mailOptions = {
 //   });
 
 
-app.get('/viewOrders', function(req, res){ 
-    res.render('index.ejs',{user: "Great User",title:"homepage"});
-});
 
 app.get('/getRestaurants', function(req, res){ 
     console.log();
@@ -56,6 +53,28 @@ app.get('/makeOrder', function(req, res){
 
 app.get('/getOrders', function(req, res){ 
     console.log();
+    console.log(req.query.restaurant);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
+});
+
+
+// Optional:
+app.get('/checkOrders', function(req, res){ 
+    console.log(req.query.restaurant);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
+});
+
+// Optional:
+app.get('/completeOrder', function(req, res){ 
+    console.log(req.query.order);
+    res.setHeader('Content-Type', 'application/json');
+    res.send({test:"food"});
+});
+
+// Optional:
+app.post('/login', function(req, res){ 
     console.log(req.query.restaurant);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"food"});
