@@ -63,7 +63,7 @@ app.get('/getFoodItems', function(req, res){
     });
 });
 
-app.get('/makeOrder', function(req, res){ 
+app.post('/makeOrder', function(req, res){ 
     console.log(req.body);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"giveOrder"});
