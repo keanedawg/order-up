@@ -20,10 +20,6 @@ admin.initializeApp({
 });
 
 var ref = admin.app().database().ref();
-ref.once('value')
- .then(function (snap) {
-    console.log('snap.val()', snap.val());
- });
 
 
 // firebase.initializeApp({
@@ -68,7 +64,7 @@ app.get('/getFoodItems', function(req, res){
 });
 
 app.get('/makeOrder', function(req, res){ 
-    console.log(req.body.restaurant);
+    console.log(req.body);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"giveOrder"});
 });
