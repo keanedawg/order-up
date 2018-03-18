@@ -77,9 +77,9 @@ app.post('/makeOrder', function(req, res){
         });
     }
     console.log(orderObj);
-   // ref.child('Orders').push(orderObj);
+    ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
-    //res.send({test:"giveOrder"});
+    res.send({test:"order placed"});
 });
 
 app.get('/getOrders', function(req, res){ 
