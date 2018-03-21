@@ -74,7 +74,9 @@ app.post('/makeOrder', function(req, res){
     console.log(orderObj);
     ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
-    res.send({test:"order placed"});
+    if (req.body.restaurant != orderObj) {
+        res.send({test:"order placed"});
+    }
 });
 
 app.get('/getOrders', function(req, res){ 
