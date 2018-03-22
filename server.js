@@ -79,10 +79,6 @@ app.post('/makeOrder', function(req, res){
     }
 });
 
-app.get('/viewOrders/:id', function(req, res){ 
-    console.log(req.params);
-    res.render('viewOrders.ejs',{id:req.params.id});
-});
 
 app.get('/getOrders', function(req, res){ 
     ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
@@ -114,10 +110,19 @@ app.post('/login', function(req, res){
     res.send({test:"food"});
 });
 
+
+// DELETE ME WHEN I HAVE A WORKING POST REQUEST
 app.post('/getrate', function(req, res){ 
     console.log(req.body.weight);
     res.render('getRate.ejs',{rate:calculateRate(req.body.weight, req.body.type)});
 });
+
+// Web Pages to serve up
+app.get('/viewOrders/:id', function(req, res){ 
+    console.log(req.params);
+    res.render('viewOrders.ejs',{id:req.params.id});
+});
+
 
 app.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
 
