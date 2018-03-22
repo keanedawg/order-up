@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function sendForm(submitType) {
+                var form = document.getElementsByTagName("form")[0]; // get the form somehow
+                if (submitType == 'route') {
+                    var url = "/getrate"
+                    for ( var i = 0; i < 2; i++ ) {
+                        var e = form.elements[i];
+                        url += "/" + e.value;
+                    }
+                    console.log(url);
+                    window.location.href = url;
+                    
+                }
+                else {
+                    form.method="get";
+                    form.submit();
+                }
+            }
+        </script>
+        <link rel="stylesheet" href="style.css">
+
+
+
+    </head>
+<body>
+<h1>Restaurants</h1>
+<div class="restaurantBlock">
+    <h3>Hello</h3>
+</div>
+
+</body>
+</html>
