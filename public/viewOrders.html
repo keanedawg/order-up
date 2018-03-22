@@ -6,6 +6,13 @@
             $(document).ready(function(){
                 $("button").click(function(){
                     $.ajax({url: "http://localhost:5555/getOrders?restaurant=casa_de_ochoa", success: function(result){
+                        for (var key in result) {
+                            console.log(key);
+                            if (result.hasOwnProperty(key)) {
+                                var val = result[key];
+                                console.log(val);
+                            }
+                        }
                         console.log(result);
                         $("#div1").html(result);
                     }});
