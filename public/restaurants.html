@@ -3,23 +3,14 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
-            function sendForm(submitType) {
-                var form = document.getElementsByTagName("form")[0]; // get the form somehow
-                if (submitType == 'route') {
-                    var url = "/getrate"
-                    for ( var i = 0; i < 2; i++ ) {
-                        var e = form.elements[i];
-                        url += "/" + e.value;
-                    }
-                    console.log(url);
-                    window.location.href = url;
-                    
-                }
-                else {
-                    form.method="get";
-                    form.submit();
-                }
-            }
+            $(document).ready(function(){
+                $("button").click(function(){
+                    $.ajax({url: "http://localhost:5555/getOrders?restaurant=casa_de_ochoa", success: function(result){
+                        console.log(result);
+                        $("#div1").html(result);
+                    }});
+                });
+            });
         </script>
         <link rel="stylesheet" href="style.css">
 
