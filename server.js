@@ -79,6 +79,11 @@ app.post('/makeOrder', function(req, res){
     }
 });
 
+app.get('/viewOrders/:id', function(req, res){ 
+    console.log(req.params);
+    res.render('viewOrders.ejs',{id:req.params.id});
+});
+
 app.get('/getOrders', function(req, res){ 
     ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
         console.log(snapshot);
