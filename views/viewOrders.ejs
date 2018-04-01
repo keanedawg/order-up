@@ -6,12 +6,15 @@
             $(document).ready(function(){
                 $("#getContent").click(function(){
                     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
-                       // console.log(result);
-                        $("#div1").html(JSON.stringify(result));
-                        for (val in result) {
-                            $("#div1").append("<p>" + val + "</p>")
-                            console.log(val);
-                        }
+                        $.each(result, function( index, value ) {
+                            var menuOrder = '<div class="current_order">';
+                            menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
+                            $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
+                                menuOrder += '<p class="order_item">' + foodItem + '</p>';
+                            });
+                            
+                            $("#list_orders").append(menuOrder + '</div>');
+                        });
                     }});
                 });
             });
@@ -20,7 +23,7 @@
     </head>
 <body>
 <h1>Restaurants</h1>
-<div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+<div id="list_orders"><h2>Let jQuery AJAX Change This Text</h2></div>
 <button id="getContent">Get External Content</button>
 <div class="restaurantBlock">
     <h3>Hello</h3>
