@@ -11,7 +11,7 @@ var admin = require("firebase-admin");
 //var firebase = require("firebase");
 var nodemailer = require("nodemailer");
 
-var serviceAccount = require("./rexburg-order-up.json");
+var serviceAccount = require("./rexburg_order_up.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   "authDomain": "rexburg-order-up.firebaseapp.com",
@@ -125,6 +125,3 @@ app.get('/viewOrders/:id', function(req, res){
 
 
 app.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
-
-
-
