@@ -6,8 +6,12 @@
             $(document).ready(function(){
                 $("#getContent").click(function(){
                     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
-                        console.log(result);
-                        $("#div1").html(JSON.stringify(result[1]));
+                       // console.log(result);
+                        $("#div1").html(JSON.stringify(result));
+                        for (val in result) {
+                            $("#div1").append("<p>" + val + "</p>")
+                            console.log(val);
+                        }
                     }});
                 });
             });
