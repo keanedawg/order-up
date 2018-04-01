@@ -4,7 +4,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
-                $("button").click(function(){
+                $("#getContent").click(function(){
                     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
                         console.log(result);
                         $("#div1").html(JSON.stringify(result[1]));
@@ -12,18 +12,59 @@
                 });
             });
         </script>
-        <link rel="stylesheet" href="style.css">
-
-
-
+        <link rel="stylesheet" href="/style.css">
     </head>
 <body>
 <h1>Restaurants</h1>
 <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
-<button>Get External Content</button>
+<button id="getContent">Get External Content</button>
 <div class="restaurantBlock">
     <h3>Hello</h3>
 </div> 
+
+<h2>Modal Example</h2>
+
+<!-- Trigger/Open The Modal -->
+<button id="myBtn">Open Modal</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 
 </body>
 </html>
