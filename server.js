@@ -4,7 +4,8 @@ const app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-server.listen(80);
+
+
 
 app.use(express.static('public'));
 app.use(express.json());       // to support JSON-encoded bodies
@@ -36,7 +37,10 @@ var ref = admin.app().database().ref();
 // });
 
 /* SOCKET IO */
-
+server.listen(5554);
+app.get('/', function (req, res) {
+    res.sendfile(__dirname + '/index.html');
+});
 io.on('connection', function (socket) {
     socket.emit('news', { hello: 'world' });
     socket.on('my other event', function (data) {
@@ -45,15 +49,14 @@ io.on('connection', function (socket) {
 });
 
 
-
 // Throwaway email account
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
 
 
 /* WEB ENDPOINTS */
 app.get('/getRestaurants', function(req, res) { 
+    //socket.emit('news', { hello: 'world' });
     ref.child('Restaurants').once('value').then(function (snapshot, err) {
-        console.log(snapshot);
         res.setHeader('Content-Type', 'application/json');
         res.send(snapshot);
     });
@@ -61,7 +64,6 @@ app.get('/getRestaurants', function(req, res) {
 
 app.get('/getFoodItems', function(req, res){ 
     ref.child('FoodItems').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
-        console.log(snapshot);
         res.setHeader('Content-Type', 'application/json');
         res.send(snapshot);
     });
