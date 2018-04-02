@@ -58,15 +58,9 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
     modal.style.display = "block";
+
+    // TO DO: Make a request for a single order or send a single order over to display.
     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
-        // $.each(result, function( index, value ) {
-        //     var menuOrder = '<div class="current_order">';
-        //     menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
-        //     $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
-        //         menuOrder += '<p class="order_item">' + foodItem + '</p>';
-        //     });
-        //     $("#list_orders").append(menuOrder + '</div>');
-        // });
         myNewOrder = result[1] // Sample Order for now 
         myNewOrderDisplay = '<div class="newOrder">';
         myNewOrderDisplay += '<h4 class="order_name">New Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
