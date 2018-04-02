@@ -26,5 +26,8 @@
     "firebase-admin": "^5.11.0",
     "firebase-auth": "^0.1.2",
     "nodemailer": "^4.6.3"
+  },
+  "devDependencies": {
+    "socket.io": "^2.1.0"
   }
 }
