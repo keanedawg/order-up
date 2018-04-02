@@ -79,7 +79,6 @@ function openOrder(restaurant_id) {
     modal.style.display = "block";
     var data = {'restaurant': restaurant_id};
     var queryString = encodeQueryData(data);
-    console.log(queryString);
     var getURL = "http://localhost:5555/" + "getFoodItems?" + queryString;
     // TO DO: make LOCALHOST a passed in variable to alternate between Heroku and development environments
     $.ajax({url: getURL, success: function(result) {

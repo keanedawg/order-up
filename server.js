@@ -103,7 +103,6 @@ app.post('/makeOrder', function(req, res){
 app.get('/getOrders', function(req, res){ 
     
     ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
-        console.log(snapshot);
         res.setHeader('Content-Type', 'application/json');
         res.send(snapshot);
     });
