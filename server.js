@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var io = require('socket.io')(app);
 
 app.use(express.static('public'));
 app.use(express.json());       // to support JSON-encoded bodies
