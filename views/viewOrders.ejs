@@ -54,7 +54,7 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
 btn.onclick = function() {
     modal.style.display = "block";
-
+    playSound('definite');
     // TO DO: Make a request for a single order or send a single order over to display.
     // TO DO: Insert request into list of orders
     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
@@ -64,7 +64,6 @@ btn.onclick = function() {
         $.each(myNewOrder.menuItemsOrdered, function( indexNum, foodItem )  {
             myNewOrderDisplay += '<p class="new_order_item">' + foodItem + '</p>';
         });
-        console.log(myNewOrderDisplay);
         $(".modal-content").append(myNewOrderDisplay + '</div>');
     }});
 }
@@ -82,7 +81,12 @@ window.onclick = function(event) {
         $(".newOrder").remove();
     }
 }
+
+function playSound(filename){   
+    document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="/' + filename + '.mp3" type="audio/mpeg" /><source src="/' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="/' + filename +'.mp3" /></audio>';
+}
 </script>
 
+<div id="sound"></div>
 </body>
 </html>
