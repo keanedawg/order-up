@@ -50,7 +50,7 @@ app.get('/getFoodItems', function(req, res){
 });
 
 
-// In order to use this, you need to s
+// In order to use this, you need to send some required parameters
 app.post('/makeOrder', function(req, res){ 
     
     var orderObj = {
