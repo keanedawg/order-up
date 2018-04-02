@@ -1,6 +1,10 @@
 const express = require('express');
 const app = express();
-var io = require('socket.io')(app);
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+server.listen(80);
 
 app.use(express.static('public'));
 app.use(express.json());       // to support JSON-encoded bodies
@@ -31,9 +35,22 @@ var ref = admin.app().database().ref();
 //  "storageBucket": "rexburg-order-up.appspot.com"
 // });
 
+/* SOCKET IO */
+
+io.on('connection', function (socket) {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+        console.log(data);
+    });
+});
+
+
+
 // Throwaway email account
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
 
+
+/* WEB ENDPOINTS */
 app.get('/getRestaurants', function(req, res) { 
     ref.child('Restaurants').once('value').then(function (snapshot, err) {
         console.log(snapshot);
