@@ -111,12 +111,6 @@ app.post('/login', function(req, res){
 });
 
 
-// DELETE ME WHEN I HAVE A WORKING POST REQUEST
-app.post('/getrate', function(req, res){ 
-    console.log(req.body.weight);
-    res.render('getRate.ejs',{rate:calculateRate(req.body.weight, req.body.type)});
-});
-
 // Web Pages to serve up
 app.get('/viewOrders/:id', function(req, res){ 
     res.render('viewOrders.ejs',{id:req.params.id});
