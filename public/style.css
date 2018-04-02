@@ -2,7 +2,11 @@
     color: blue;
 }
 
-body {font-family: Arial, Helvetica, sans-serif;}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: blue;
+    color: white;
+}
 
 /* The Modal (background) */
 .modal {
@@ -17,6 +21,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
     overflow: auto; /* Enable scroll if needed */
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    color: black;
 }
 
 .current_order {

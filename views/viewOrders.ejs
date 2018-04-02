@@ -60,6 +60,7 @@ btn.onclick = function() {
     modal.style.display = "block";
 
     // TO DO: Make a request for a single order or send a single order over to display.
+    // TO DO: Insert request into list of orders
     $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
         myNewOrder = result[1] // Sample Order for now 
         myNewOrderDisplay = '<div class="newOrder">';
