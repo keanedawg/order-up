@@ -119,8 +119,11 @@ app.post('/getrate', function(req, res){
 
 // Web Pages to serve up
 app.get('/viewOrders/:id', function(req, res){ 
-    console.log(req.params);
     res.render('viewOrders.ejs',{id:req.params.id});
+});
+
+app.get('/restaurants', function(req, res){ 
+    res.render('restaurants.ejs');
 });
 
 
