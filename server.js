@@ -81,6 +81,7 @@ app.post('/makeOrder', function(req, res){
 
 
 app.get('/getOrders', function(req, res){ 
+    
     ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
         console.log(snapshot);
         res.setHeader('Content-Type', 'application/json');
@@ -113,7 +114,10 @@ app.post('/login', function(req, res){
 
 // Web Pages to serve up
 app.get('/viewOrders/:id', function(req, res){ 
-    res.render('viewOrders.ejs',{id:req.params.id});
+    ref.child('Restaurants').child(req.params.id).once('value').then(function (snapshot, err) { 
+        console.log(snapshot.val().name);
+        res.render('viewOrders.ejs',{id:req.params.id, name:snapshot.val().name});
+    });
 });
 
 app.get('/restaurants', function(req, res){ 
