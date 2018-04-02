@@ -6,7 +6,6 @@
             $(document).ready(function(){
                 $.ajax({url: "http://localhost:5555/getRestaurants", success: function(result){
                     $.each(result, function(index, value ) {
-                        console.log(value);
                         var restaurant = '<div class="restaurant">';
                         restaurant += '<h3 class="restaurant_name">' + value.name + '</h3>';
                         restaurant += '<h4 class="restaurant_email">' + value.address + '</h4>';
