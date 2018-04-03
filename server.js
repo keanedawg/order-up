@@ -92,6 +92,7 @@ app.post('/makeOrder', function(req, res){
                     "menuItemsOrdered": menuItemsOrdered};
 
     // Confirm that the menu was created
+    // TO DO: calculate the price AND time-to-make
     if (req.body.email != null) {
         ref.child('Restaurants').child(req.body.restaurant).once('value').then(function (snapshot, err) {
             var result = snapshot.val();
@@ -106,6 +107,8 @@ app.post('/makeOrder', function(req, res){
             });
         });
     }
+    
+
 
     ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
