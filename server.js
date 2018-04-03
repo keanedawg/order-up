@@ -17,6 +17,7 @@ var admin = require("firebase-admin");
 //var firebase = require("firebase");
 var nodemailer = require("nodemailer");
 
+console.log("my firebase key is " + process.env.firebase_admin_key);
 if (process.env.firebase_admin_key) {
     var serviceAccount =  JSON.parse(process.env.firebase_admin_key);
 }
