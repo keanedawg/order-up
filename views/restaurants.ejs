@@ -20,13 +20,8 @@
 <body>
 
 <h1>Rexburg Online Ordering</h1>
+<h3>All your favorite restaurants,<br> available to order</h3>
 <div id="list_restaurants"></div>
-
-
-<h2>Modal Example</h2>
-
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -43,16 +38,10 @@
 // Get the modal
 var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -66,6 +55,11 @@ window.onclick = function(event) {
         modal.style.display = "none";
         $(".modal-order").remove();
     }
+}
+
+function submitOrder() {
+    var queryString = $('.modal-order').serialize();
+    alert(queryString);
 }
 
 function encodeQueryData(data) {
@@ -82,7 +76,7 @@ function openOrder(restaurant_id) {
     var getURL = "http://localhost:5555/" + "getFoodItems?" + queryString;
     // TO DO: make LOCALHOST a passed in variable to alternate between Heroku and development environments
     $.ajax({url: getURL, success: function(result) {
-        $(".modal-content").append('<form class="modal-order"></form>');
+        $(".modal-content").append('<form method=POST action="/makeOrder" class="modal-order"></form>');
         $.each(result, function(index, value) {
             if ($('.modal-order').find('div.' + value.type).length == 0 /*Check if this food-class doesn't exists*/) {
                 // Inserts accordion into div
@@ -107,7 +101,7 @@ function openOrder(restaurant_id) {
             $(myAccordion).append(foodItem);
         });
         createAccordions();
-        $(".modal-order").append('<input value="Submit" type="submit">');
+        $(".modal-order").append('<input value="Submit" type="submit" onclick="submitOrder()">');
     }});
 }
 

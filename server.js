@@ -72,30 +72,47 @@ app.get('/getFoodItems', function(req, res){
 
 // In order to use this, you need to send some required parameters
 app.post('/makeOrder', function(req, res){ 
+    
+    console.log(req.body);
+
+    
+
+    Object.keys(req.body).forEach(function(key) {
+        for (let i = 0; i < req.body[key]; i++) {
+            req.body[key];
+        }
+
+
+        console.log(key, req.body[key]);
+    });
+
+    var foods = {};
+
+
     var orderObj = {
                     "created": Date(),
                     "restaurant_id": req.body.restaurant, 
                     "menuItemsOrdered": req.body.foodItem };
-    if (req.body.email != null) {
-        ref.child('Restaurants').child(req.body.restaurant).once('value').then(function (snapshot, err) {
-            var result = snapshot.val();
-            var mailOptions = {
-                from: '"Rexburg Ordering" <noreply@firebase.com>',
-                to: req.body.email,
-                subject: 'Your order to ' + result.name + ' has been placed!',
-                text: 'Dear ' + req.body.person + ',\n\nThank you for your purchase!\n\nYour order will be ready soon!\n\nRegards,\nRexburg Ordering'
-            };
-            mailTransport.sendMail(mailOptions).then(function() {
-                console.log('Email notification sent');
-            });
-        });
-    }
-    console.log(orderObj);
-    ref.child('Orders').push(orderObj);
-    res.setHeader('Content-Type', 'application/json');
-    if (req.body.restaurant != orderObj) {
+    // if (req.body.email != null) {
+    //     ref.child('Restaurants').child(req.body.restaurant).once('value').then(function (snapshot, err) {
+    //         var result = snapshot.val();
+    //         var mailOptions = {
+    //             from: '"Rexburg Ordering" <noreply@firebase.com>',
+    //             to: req.body.email,
+    //             subject: 'Your order to ' + result.name + ' has been placed!',
+    //             text: 'Dear ' + req.body.person + ',\n\nThank you for your purchase!\n\nYour order will be ready soon!\n\nRegards,\nRexburg Ordering'
+    //         };
+    //         mailTransport.sendMail(mailOptions).then(function() {
+    //             console.log('Email notification sent');
+    //         });
+    //     });
+    // }
+    // console.log(orderObj);
+    // ref.child('Orders').push(orderObj);
+    // res.setHeader('Content-Type', 'application/json');
+    // if (req.body.restaurant != orderObj) {
         res.send({test:"order placed"});
-    }
+    //}
 });
 
 
