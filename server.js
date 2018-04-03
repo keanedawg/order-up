@@ -5,8 +5,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 
-
-
 app.use(express.static('public'));
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
@@ -117,14 +115,16 @@ app.post('/makeOrder', function(req, res){
             });
         });
     }
-    
 
+    // sending to all clients in 'game' room, including sender
+    io.in('kitchenSocket').emit('order-placed', 'An order has been placed!');
+    console.log("I emitted");
 
-    ref.child('Orders').push(orderObj);
-    res.setHeader('Content-Type', 'application/json');
-    if (req.body.restaurant != orderObj) {
+    // ref.child('Orders').push(orderObj);
+    // res.setHeader('Content-Type', 'application/json');
+    // if (req.body.restaurant != orderObj) {
         res.send({test:"order placed"});
-    }
+    //}
 });
 
 
