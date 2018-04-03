@@ -1,14 +1,15 @@
 const express = require('express');
 const app = express();
 
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
 
 
 app.use(express.static('public'));
 app.use(express.json());       // to support JSON-encoded bodies
 app.use(express.urlencoded()); // to support URL-encoded bodies
 app.set('view engine', 'ejs');
+
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 
 // This is very insecure and I wouldn't do this for a non-school related project
 var admin = require("firebase-admin");
@@ -45,7 +46,6 @@ var ref = admin.app().database().ref();
 // });
 
 /* SOCKET IO */
-server.listen(5554);
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
 });
@@ -172,4 +172,4 @@ app.get('/restaurants', function(req, res){
 });
 
 
-app.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
+server.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
