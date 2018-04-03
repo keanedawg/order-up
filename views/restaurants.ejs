@@ -101,7 +101,7 @@ function openOrder(restaurant_id) {
             $(myAccordion).append(foodItem);
         });
         createAccordions();
-        $(".modal-order").append('<input value="Submit" type="submit" onclick="submitOrder()">');
+        $(".modal-order").append('<input type="hidden" name="restaurant" value="' + restaurant_id + '"><input value="Submit" type="submit" onclick="submitOrder()">');
     }});
 }
 
