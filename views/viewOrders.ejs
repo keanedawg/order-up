@@ -5,7 +5,7 @@
         <script>
             $(document).ready(function(){
                 //$("#getContent").click(function(){
-                    $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
+                    $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
                         $.each(result, function( index, value ) {
                             var menuOrder = '<div class="current_order">';
                             menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
@@ -59,7 +59,7 @@ function openOrder() {
     playSound('definite');
     // TO DO: Make a request for a single order or send a single order over to display.
     // TO DO: Insert request into list of orders
-    $.ajax({url: "http://localhost:5555/getOrders?restaurant=<%= id%>", success: function(result){
+    $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
         myNewOrder = result[1] // Sample Order for now 
         myNewOrderDisplay = '<div class="newOrder">';
         myNewOrderDisplay += '<h4 class="order_name">New Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
