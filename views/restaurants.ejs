@@ -3,8 +3,9 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
+            // http://localhost:5555/getRestaurants
             $(document).ready(function(){
-                $.ajax({url: "http://localhost:5555/getRestaurants", success: function(result){
+                $.ajax({url: "/getRestaurants", success: function(result){
                     $.each(result, function(index, value ) {
                         var restaurant = '<div class="restaurant">';
                         restaurant += '<h3 class="restaurant_name">' + value.name + '</h3>';
