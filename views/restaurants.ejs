@@ -34,26 +34,10 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
-    <h2>Accordion</h2>
-
-<button class="accordion">Section 1</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
-
-<button class="accordion">Section 2</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
-
-<button class="accordion">Section 3</button>
-<div class="panel">
-  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-</div>
-  </div>
+    <h2>Make Your Meal</h2>
 
 </div>
+<div id=clear style="clear:both"></div>
 
 <script>
 // Get the modal
@@ -100,31 +84,49 @@ function openOrder(restaurant_id) {
     $.ajax({url: getURL, success: function(result) {
         $(".modal-content").append('<form class="modal-order"></form>');
         $.each(result, function(index, value) {
+            if ($('.modal-order').find('div.' + value.type).length == 0 /*Check if this food-class doesn't exists*/) {
+                // Inserts accordion into div
+                $(".modal-order").append("<button type=button class=\"accordion\">" + value.type + "</button><div class=\"" + value.type + " panel\"></div>");
+
+                // Set accordion value
+                var myAccordion = "." + value.type;
+            }
+            else {
+                // set accordion value
+                var myAccordion = "." + value.type;
+            }
+
+
             var foodItem = '<div class="foodItem">';
             foodItem += '<h3 class="foodItem_name">' + value.name + '</h3>';
             foodItem += '<h4 class="foodItem_price">$' + value.price + '.00</h4>';
             foodItem += '<select name="' + index + '"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>';
             foodItem += '</div>';
-            $(".modal-order").append(foodItem);
+
+            // Append to proper accordion
+            $(myAccordion).append(foodItem);
         });
+        createAccordions();
         $(".modal-order").append('<input value="Submit" type="submit">');
     }});
 }
 
 // ACCORDION LOGIC
-var acc = document.getElementsByClassName("accordion");
-var i;
+function createAccordions() {
+    var acc = document.getElementsByClassName("accordion");
+    var i;
 
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var panel = this.nextElementSibling;
-        if (panel.style.display === "block") {
-            panel.style.display = "none";
-        } else {
-            panel.style.display = "block";
-        }
-    });
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
 }
 </script>
 
