@@ -17,7 +17,16 @@ var admin = require("firebase-admin");
 //var firebase = require("firebase");
 var nodemailer = require("nodemailer");
 
-var serviceAccount = require("./rexburg_order_up.json");
+if (process.env.firebase_admin_key) {
+    var serviceAccount =  JSON.parse(process.env.firebase_admin_key);
+}
+else {
+    var serviceAccount = require("./rexburg_order_up.json");
+}
+
+
+
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   "authDomain": "rexburg-order-up.firebaseapp.com",
