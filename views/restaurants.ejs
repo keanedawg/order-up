@@ -96,7 +96,6 @@ function openOrder(restaurant_id) {
     var data = {'restaurant': restaurant_id};
     var queryString = encodeQueryData(data);
     var getURL = "/" + "getFoodItems?" + queryString;
-    // TO DO: make LOCALHOST a passed in variable to alternate between Heroku and development environments
     $.ajax({url: getURL, success: function(result) {
         $(".modal-content").append('<form method=POST action="/makeOrder" class="modal-order"></form>');
         $.each(result, function(index, value) {
