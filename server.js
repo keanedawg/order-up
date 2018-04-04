@@ -13,6 +13,11 @@ var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
 var firebase = require("firebase/app");
+require('firebase/auth');
+require('firebase/database');
+require('firebase/storage');
+
+
 var nodemailer = require("nodemailer");
 
 if (process.env.firebase_admin_key) {
@@ -41,6 +46,7 @@ admin.initializeApp({
 var defaultAuth = admin.auth();
 
 var ref = admin.app().database().ref();
+var nonAuthRef = firebaseApp.database().ref();
 
 /* SOCKET IO */
 app.get('/', function (req, res) {
@@ -91,8 +97,8 @@ app.post('/makeOrder', function(req, res){
 
     var orderObj = {
                     "created": Date(),
-                    "name": req.body.name,
-                    "email": req.body.email,
+                    // "name": req.body.name,
+                    // "email": req.body.email,
                     "restaurant_id": req.body.restaurant, 
                     "menuItemsOrdered": menuItemsOrdered};
 
@@ -117,11 +123,11 @@ app.post('/makeOrder', function(req, res){
     io.emit(req.body.restaurant, orderObj);
     console.log("I emitted");
 
-    // ref.child('Orders').push(orderObj);
-    // res.setHeader('Content-Type', 'application/json');
-    // if (req.body.restaurant != orderObj) {
+    nonAuthRef.child('Orders').push(orderObj);
+    res.setHeader('Content-Type', 'application/json');
+    if (req.body.restaurant != orderObj) {
         res.send({test:"Your order has been successfully placed! You will be notified if it was confirmed."});
-    //}
+    }
 });
 
 
