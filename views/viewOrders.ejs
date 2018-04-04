@@ -52,20 +52,17 @@ var span = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
 btn.onclick = openOrder;
 
-function openOrder() {
+function openOrder(result) {
     modal.style.display = "block";
     playSound('definite');
-    // TO DO: Insert request into list of orders
-    $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
-        myNewOrder = result[1] // Sample Order for now 
-        myNewOrderDisplay = '<div class="newOrder">';
-        myNewOrderDisplay += '<h4 class="order_name">New Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
-        $.each(myNewOrder.menuItemsOrdered, function( indexNum, foodItem )  {
-            myNewOrderDisplay += '<p class="new_order_item">' + foodItem + '</p>';
-        });
-        $(".modal-content").append(myNewOrderDisplay + '</div>');
-    }});
+    var myNewOrderDisplay = '<div class="newOrder">';
+    myNewOrderDisplay += '<h4 class="order_name">New Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
+    $.each(result.menuItemsOrdered, function( indexNum, foodItem )  {
+        myNewOrderDisplay += '<p class="new_order_item">' + foodItem + '</p>';
+    });
+    $(".modal-content").append(myNewOrderDisplay + '</div>');
 }
+
 
 function clearOrder() {
     modal.style.display = "none";
@@ -92,8 +89,7 @@ function playSound(filename){
 <script>
     this.socket = io('/', {transports: ['websocket']});
     socket.on('<%= id%>', function (data) {
-        openOrder();
-        console.log(data);
+        openOrder(data);
         var menuOrder = '<div class="current_order">';
                         menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
                         $.each(data.menuItemsOrdered, function( indexNum, foodItem )  {
