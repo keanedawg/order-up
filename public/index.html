@@ -1,7 +1,7 @@
 <script src="/socket.io.js"></script>
 <script>
-  var socket = io.connect('/kitchenSocket', {transports: ['websocket']});
-  socket.on('news', function (data) {
+  this.socket = io('/', {transports: ['websocket']});
+  socket.on('order-placed', function (data) {
     console.log(data);
     //socket.emit('my other event', { my: 'data' });
   });
