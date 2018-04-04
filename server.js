@@ -12,9 +12,9 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
+var firebaseAuth = require("firebase-auth");
 var nodemailer = require("nodemailer");
 
-console.log("my firebase key is " + process.env.firebase_admin_key);
 if (process.env.firebase_admin_key) {
     var serviceAccount =  JSON.parse(process.env.firebase_admin_key);
 }
