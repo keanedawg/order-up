@@ -12,7 +12,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
-var firebaseAuth = require("firebase-auth");
+var firebase = require("firebase/app");
 var nodemailer = require("nodemailer");
 
 if (process.env.firebase_admin_key) {
@@ -23,6 +23,12 @@ else {
 }
 
 
+var firebaseApp = firebase.initializeApp({
+  "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
+  "authDomain": "rexburg-order-up.firebaseapp.com",
+  "databaseURL": "https://rexburg-order-up.firebaseio.com",
+  "storageBucket": "rexburg-order-up.appspot.com"
+});
 
 
 admin.initializeApp({
@@ -31,6 +37,8 @@ admin.initializeApp({
   "databaseURL": "https://rexburg-order-up.firebaseio.com",
   "storageBucket": "rexburg-order-up.appspot.com"
 });
+
+var defaultAuth = admin.auth();
 
 var ref = admin.app().database().ref();
 
