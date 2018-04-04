@@ -123,7 +123,7 @@ app.post('/makeOrder', function(req, res){
     // ref.child('Orders').push(orderObj);
     // res.setHeader('Content-Type', 'application/json');
     // if (req.body.restaurant != orderObj) {
-        res.send({test:"order placed"});
+        res.send({test:"Your order has been successfully placed! You will be notified if it was confirmed."});
     //}
 });
 

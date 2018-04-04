@@ -10,7 +10,7 @@
                         var restaurant = '<div class="restaurant">';
                         restaurant += '<h3 class="restaurant_name">' + value.name + '</h3>';
                         restaurant += '<h4 class="restaurant_email">' + value.address + '</h4>';
-                        restaurant += '<button onclick="openOrder(\'' + index + '\')">Order</button></div>'
+                        restaurant += '<button id="submit" onclick="openOrder(\'' + index + '\')">Order</button></div>'
                         $("#list_restaurants").append(restaurant);
                     });
                 }});
@@ -58,9 +58,31 @@ window.onclick = function(event) {
     }
 }
 
+$('#submit').click(function() {
+    
+});
+
+function objectifyForm(formArray) {//serialize data function
+    var returnArray = {};
+    for (var i = 0; i < formArray.length; i++){
+    returnArray[formArray[i]['name']] = formArray[i]['value'];
+    }
+    return returnArray;
+}
+
 function submitOrder() {
-    var queryString = $('.modal-order').serialize();
-    alert(queryString);
+    var formArray = $('.modal-order').serializeArray();
+    var formObject = objectifyForm(formArray);
+
+    $.ajax({
+        url: '/makeorder',
+        type: 'POST',
+        data: formObject,
+        success: function(msg) {
+            alert(msg.test);
+        }               
+    });
+    //alert(JSON.stringify(formObject));
 }
 
 function encodeQueryData(data) {
@@ -90,19 +112,16 @@ function openOrder(restaurant_id) {
                 // set accordion value
                 var myAccordion = "." + value.type;
             }
-
-
             var foodItem = '<div class="foodItem">';
             foodItem += '<h3 class="foodItem_name">' + value.name + '</h3>';
             foodItem += '<h4 class="foodItem_price">$' + value.price + '.00</h4>';
             foodItem += '<select name="' + index + '"><option value="0">0</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option></select>';
             foodItem += '</div>';
-
             // Append to proper accordion
             $(myAccordion).append(foodItem);
         });
         createAccordions();
-        $(".modal-order").append('<input type="hidden" name="restaurant" value="' + restaurant_id + '"><input value="Submit" type="submit" onclick="submitOrder()">');
+        $(".modal-order").append('<input type="hidden" name="restaurant" value="' + restaurant_id + '"><input value="Submit" type="button" onclick="submitOrder()">');
     }});
 }
 
