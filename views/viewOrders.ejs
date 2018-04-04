@@ -70,6 +70,11 @@ function openOrder() {
     }});
 }
 
+function clearOrder() {
+    modal.style.display = "none";
+    $(".newOrder").remove();
+}
+
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
     modal.style.display = "none";
@@ -90,9 +95,11 @@ function playSound(filename){
 </script>
 <script src="/socket.io.js"></script>
 <script>
-    var socket = io.connect('http://localhost:5554/kitchenSocket');
+    this.socket = io('/', {transports: ['websocket']});
     socket.on('order-placed', function (data) {
-        alert("an order has been placed:" + data)
+        openOrder();
+        console.log(data);
+        //socket.emit('my other event', { my: 'data' });
     });
 </script>
 
