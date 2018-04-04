@@ -125,14 +125,6 @@ app.get('/getOrders', function(req, res){
     });
 });
 
-
-// Optional:
-app.get('/checkOrders', function(req, res){ 
-    console.log(req.query.restaurant);
-    res.setHeader('Content-Type', 'application/json');
-    res.send({test:"food"});
-});
-
 // Optional:
 app.get('/completeOrder', function(req, res){ 
     console.log(req.query.order);
