@@ -94,7 +94,12 @@ function playSound(filename){
     socket.on('<%= id%>', function (data) {
         openOrder();
         console.log(data);
-        //socket.emit('my other event', { my: 'data' });
+        var menuOrder = '<div class="current_order">';
+                        menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
+                        $.each(data.menuItemsOrdered, function( indexNum, foodItem )  {
+                            menuOrder += '<p class="order_item">' + foodItem + '</p>';
+                        });
+                        $("#list_orders").append(menuOrder + '</div>');
     });
 </script>
 
