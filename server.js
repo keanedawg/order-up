@@ -106,7 +106,7 @@ app.post('/makeOrder', function(req, res){
     }
 
     // sending to all clients in 'game' room, including sender
-    io.emit('order-placed', 'An order has been placed!');
+    io.emit(req.body.restaurant, 'An order has been placed!');
     console.log("I emitted");
 
     // ref.child('Orders').push(orderObj);

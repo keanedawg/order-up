@@ -91,7 +91,7 @@ function playSound(filename){
 <script src="/socket.io.js"></script>
 <script>
     this.socket = io('/', {transports: ['websocket']});
-    socket.on('order-placed', function (data) {
+    socket.on('<%= id%>', function (data) {
         openOrder();
         console.log(data);
         //socket.emit('my other event', { my: 'data' });
