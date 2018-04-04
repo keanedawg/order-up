@@ -11,9 +11,7 @@ app.set('view engine', 'ejs');
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-// This is very insecure and I wouldn't do this for a non-school related project
 var admin = require("firebase-admin");
-//var firebase = require("firebase");
 var nodemailer = require("nodemailer");
 
 console.log("my firebase key is " + process.env.firebase_admin_key);
@@ -36,15 +34,6 @@ admin.initializeApp({
 
 var ref = admin.app().database().ref();
 
-
-// firebase.initializeApp({
-//  "appName": "rexburg-order-up",
-//  "serviceAccount": "./service-account.json",
-//  "authDomain": "rexburg-order-up.firebaseapp.com",
-//  "databaseURL": "rexburg-order-up",
-//  "storageBucket": "rexburg-order-up.appspot.com"
-// });
-
 /* SOCKET IO */
 app.get('/', function (req, res) {
     res.sendfile(__dirname + '/index.html');
@@ -58,6 +47,7 @@ io.on('connection', function (socket) {
 
 
 // Throwaway email account
+// TO-DO: turn this into proper environment variable
 var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
 
 
@@ -83,7 +73,7 @@ app.post('/makeOrder', function(req, res){
     // Convert Post Parameters into new order
     var menuItemsOrdered = [];
     Object.keys(req.body).forEach(function(key) {
-        if (key == "restaurant") {
+        if (key == "restaurant" || key == "email" || key == "name") {
             return;
         }
         for (let i = 0; i < req.body[key]; i++) {
@@ -91,11 +81,10 @@ app.post('/makeOrder', function(req, res){
         }
     });
 
-    console.log(menuItemsOrdered);
-    console.log(req.body);
-
     var orderObj = {
                     "created": Date(),
+                    "name": req.body.name,
+                    "email": req.body.email,
                     "restaurant_id": req.body.restaurant, 
                     "menuItemsOrdered": menuItemsOrdered};
 
