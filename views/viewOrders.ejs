@@ -4,19 +4,17 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){
-                //$("#getContent").click(function(){
-                    $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
-                        $.each(result, function( index, value ) {
-                            var menuOrder = '<div class="current_order">';
-                            menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
-                            $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
-                                menuOrder += '<p class="order_item">' + foodItem + '</p>';
-                            });
-                            
-                            $("#list_orders").append(menuOrder + '</div>');
+                $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
+                    $.each(result, function( index, value ) {
+                        var menuOrder = '<div class="current_order">';
+                        menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
+                        $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
+                            menuOrder += '<p class="order_item">' + foodItem + '</p>';
                         });
-                    }});
-               // });
+                        
+                        $("#list_orders").append(menuOrder + '</div>');
+                    });
+                }});
             });
         </script>
         <link rel="stylesheet" href="/style.css">
