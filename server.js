@@ -147,7 +147,7 @@ app.get('/completeOrder', function(req, res){
 });
 
 // Optional:
-app.post('/login', function(req, res){ 
+app.post('/logUserIn', function(req, res){ 
     console.log(req.query.restaurant);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"food"});
