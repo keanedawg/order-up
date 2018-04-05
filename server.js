@@ -12,10 +12,10 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
-var firebase = require("firebase/app");
-require('firebase/auth');
-require('firebase/database');
-require('firebase/storage');
+// var firebase = require("firebase/app");
+// require('firebase/auth');
+// require('firebase/database');
+// require('firebase/storage');
 
 
 var nodemailer = require("nodemailer");
@@ -28,12 +28,12 @@ else {
 }
 
 
-var firebaseApp = firebase.initializeApp({
-  "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
-  "authDomain": "rexburg-order-up.firebaseapp.com",
-  "databaseURL": "https://rexburg-order-up.firebaseio.com",
-  "storageBucket": "rexburg-order-up.appspot.com"
-});
+// var firebaseApp = firebase.initializeApp({
+//   "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
+//   "authDomain": "rexburg-order-up.firebaseapp.com",
+//   "databaseURL": "https://rexburg-order-up.firebaseio.com",
+//   "storageBucket": "rexburg-order-up.appspot.com"
+// });
 
 
 admin.initializeApp({
