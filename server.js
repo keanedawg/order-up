@@ -14,6 +14,7 @@ var io = require('socket.io')(server);
 var admin = require("firebase-admin");
 var firebase = require("firebase/app");
 require('firebase/auth');
+require('firebase/database');
 require('firebase/storage');
 
 
@@ -45,7 +46,7 @@ admin.initializeApp({
 var defaultAuth = admin.auth();
 
 var ref = admin.app().database().ref();
-var nonAuthRef = firebaseApp.database().ref();
+//var nonAuthRef = firebaseApp.database().ref();
 
 /* SOCKET IO */
 app.get('/', function (req, res) {
@@ -122,7 +123,7 @@ app.post('/makeOrder', function(req, res){
     io.emit(req.body.restaurant, orderObj);
     console.log("I emitted");
 
-    nonAuthRef.child('Orders').push(orderObj);
+    ref.child('Orders').push(orderObj);
     res.setHeader('Content-Type', 'application/json');
     if (req.body.restaurant != orderObj) {
         res.send({test:"Your order has been successfully placed! You will be notified if it was confirmed."});
