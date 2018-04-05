@@ -149,6 +149,12 @@ app.get('/completeOrder', function(req, res){
 // Optional:
 app.post('/logUserIn', function(req, res){ 
     console.log(req.body);
+    firebase.auth().signInWithEmailAndPassword(req.body.username, req.body.password).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+    });
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"food"});
 });
