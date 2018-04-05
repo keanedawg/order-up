@@ -17,19 +17,15 @@
         //Get
         var un = $('#un').val();
         var pw = $('#pw').val();
-        firebase.auth().signInWithEmailAndPassword(un, pw).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(un, pw).then(function(user) {
+            alert("sign in successful")
+        }).catch(function(error) {
         // Handle Errors here.
             alert("it failed!");
             var errorCode = error.code;
             var errorMessage = error.message;
         // ...
         });
-        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-            alert("woah " + idToken);
-        }).catch(function(error) {
-        // Handle error
-        });
-
     }
     function logMeOut() {
         firebase.auth().signOut().then(function() {
