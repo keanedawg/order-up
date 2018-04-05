@@ -166,5 +166,8 @@ app.get('/restaurants', function(req, res){
     res.render('restaurants.ejs');
 });
 
+app.get('/login', function(req, res){ 
+    res.render('login.ejs');
+});
 
 server.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
