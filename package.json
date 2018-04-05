@@ -28,6 +28,7 @@
     "nodemailer": "^4.6.3"
   },
   "devDependencies": {
+    "firebase": "^4.12.1",
     "socket.io": "^2.1.0"
   }
 }
