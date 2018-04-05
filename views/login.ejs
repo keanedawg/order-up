@@ -1,10 +1,41 @@
 <head><link rel="stylesheet" href="style.css"></head>
 
+<script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+<script>
+    var config = {
+        "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
+        "authDomain": "rexburg-order-up.firebaseapp.com",
+        "databaseURL": "https://rexburg-order-up.firebaseio.com",
+        "storageBucket": "rexburg-order-up.appspot.com"
+    };
+    firebase.initializeApp(config);
+</script>
+
+<script>
+    function logMeIn() {
+
+        //Get
+        var un = $('#un').val();
+        var pw = $('#pw').val();
+
+
+        firebase.auth().createUserWithEmailAndPassword(un, pw).catch(function(error) {
+        // Handle Errors here.
+            alert("it failed!");
+            var errorCode = error.code;
+            var errorMessage = error.message;
+        // ...
+        });
+    }
+
+</script>
+
 <h1 class="loggedin">You are Logged In</h1>
 <h1 class="loggedout">You are Logged Out</h1>
 
+
 <form method="POST" action="/logUserIn">
-    Username: <input name="username"> <br/>
-    Password: <input type="password" name="username"> <br/>
-    <input type="submit" value="submit">
+    Username: <input id="un" name="username"> <br/>
+    Password: <input id="pw" type="password" name="username"> <br/>
+    <input type="button" onclick="logMeIn()" value="submit">
 </form>
