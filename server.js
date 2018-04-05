@@ -132,10 +132,16 @@ app.post('/makeOrder', function(req, res){
 
 
 app.get('/getOrders', function(req, res){ 
-    
-    ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
-        res.setHeader('Content-Type', 'application/json');
-        res.send(snapshot);
+    res.setHeader('Content-Type', 'application/json');
+    admin.auth().verifyIdToken(req.body.idtoken).then(function(decodedToken) {
+        console.log("authentication worked");
+        var uid = decodedToken.uid;
+        ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
+            res.send(snapshot);
+        });
+    }).catch(function(error) {
+        console.log("authentication blocked");
+        res.status(401).send({ error: "You're not authenticated!" });
     });
 });
 
