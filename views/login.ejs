@@ -31,6 +31,13 @@
         });
 
     }
+    function logMeOut() {
+        firebase.auth().signOut().then(function() {
+          alert("logged out")
+        }).catch(function(error) {
+        // An error happened.
+        });
+    }
 </script>
 
 <script>
@@ -45,4 +52,5 @@
     Username: <input id="un" name="username"> <br/>
     Password: <input id="pw" type="password" name="username"> <br/>
     <input type="button" onclick="logMeIn()" value="submit">
+    <input type="button" onclick="logMeOut()" value="logout">
 </form>
