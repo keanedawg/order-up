@@ -148,7 +148,7 @@ app.get('/completeOrder', function(req, res){
 
 // Optional:
 app.post('/logUserIn', function(req, res){ 
-    console.log(req.query.restaurant);
+    console.log(req.body);
     res.setHeader('Content-Type', 'application/json');
     res.send({test:"food"});
 });
@@ -170,4 +170,4 @@ app.get('/login', function(req, res){
     res.render('login.ejs');
 });
 
-server.listen(process.env.PORT || 5555, () => console.log('App is listening...'))
+server.listen(process.env.PORT || 80, () => console.log('App is listening...'))
