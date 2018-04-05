@@ -18,7 +18,7 @@
         var un = $('#un').val();
         var pw = $('#pw').val();
         firebase.auth().signInWithEmailAndPassword(un, pw).then(function(user) {
-            alert("sign in successful")
+            alert("sign in successful");
         }).catch(function(error) {
         // Handle Errors here.
             alert("it failed!");
