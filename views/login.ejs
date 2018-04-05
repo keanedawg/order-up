@@ -24,7 +24,17 @@
             var errorMessage = error.message;
         // ...
         });
+        firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+            alert("woah " + idToken);
+        }).catch(function(error) {
+        // Handle error
+        });
+
     }
+</script>
+
+<script>
+        
 </script>
 
 <h1 class="loggedin">You are Logged In</h1>
