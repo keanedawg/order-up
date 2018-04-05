@@ -2,6 +2,16 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+        <script>
+            var config = {
+                "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
+                "authDomain": "rexburg-order-up.firebaseapp.com",
+                "databaseURL": "https://rexburg-order-up.firebaseio.com",
+                "storageBucket": "rexburg-order-up.appspot.com"
+            };
+            firebase.initializeApp(config);
+        </script>
         <script>
             $(document).ready(function(){
                 $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
@@ -11,7 +21,6 @@
                         $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
                             menuOrder += '<p class="order_item">' + foodItem + '</p>';
                         });
-                        
                         $("#list_orders").append(menuOrder + '</div>');
                     });
                 }});
