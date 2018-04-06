@@ -14,17 +14,26 @@
         </script>
         <script>
             $(document).ready(function(){
-                $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
-                    $.each(result, function( index, value ) {
-                        var menuOrder = '<div class="current_order">';
-                        menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
-                        $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
-                            menuOrder += '<p class="order_item">' + foodItem + '</p>';
-                        });
-                        $("#list_orders").append(menuOrder + '</div>');
-                    });
-                }});
-            });
+                firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(myIdToken) {  
+                // $.ajax({url: "/getOrders?restaurant=<%= id%>", success: function(result){
+                        
+                //     }});
+                // });
+                    $.post( "/getOrders", { restaurant: "<%= id%>", idtoken: myIdToken })
+                        .done(function(result) {
+                            $.each(result, function( index, value ) {
+                                    var menuOrder = '<div class="current_order">';
+                                    menuOrder += '<h4 class="order_name">Order for ' + 'Cameron'/*value.ordererName*/ + ' at ' + /*value.ordererEmail*/'myEmail@email.com' + '</h4>'
+                                    $.each(value.menuItemsOrdered, function( indexNum, foodItem )  {
+                                        menuOrder += '<p class="order_item">' + foodItem + '</p>';
+                                    });
+                                    $("#list_orders").append(menuOrder + '</div>');
+                            });
+                        });  
+                }).catch(function(error) {
+                    alert("your not authenticated!");
+                });
+            });          
         </script>
         <link rel="stylesheet" href="/style.css">
     </head>
