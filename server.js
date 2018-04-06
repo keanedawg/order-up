@@ -135,7 +135,7 @@ app.post('/getOrders', function(req, res){
     admin.auth().verifyIdToken(req.body.idtoken).then(function(decodedToken) {
         console.log("authentication worked");
         var uid = decodedToken.uid;
-        ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
+        ref.child('Orders').orderByChild('restaurant_id').equalTo(req.body.restaurant).once('value').then(function (snapshot, err) {
             res.send(snapshot);
         });
     }).catch(function(error) {
