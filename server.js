@@ -130,6 +130,20 @@ app.post('/makeOrder', function(req, res){
     }
 });
 
+app.post('/getOrders', function(req, res){ 
+    res.setHeader('Content-Type', 'application/json');
+    admin.auth().verifyIdToken(req.body.idtoken).then(function(decodedToken) {
+        console.log("authentication worked");
+        var uid = decodedToken.uid;
+        ref.child('Orders').orderByChild('restaurant_id').equalTo(req.query.restaurant).once('value').then(function (snapshot, err) {
+            res.send(snapshot);
+        });
+    }).catch(function(error) {
+        console.log("authentication blocked");
+        res.status(401).send({ error: "You're not authenticated!" });
+    });
+});
+
 
 app.get('/getOrders', function(req, res){ 
     res.setHeader('Content-Type', 'application/json');
