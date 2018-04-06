@@ -131,6 +131,7 @@ app.post('/makeOrder', function(req, res){
 });
 
 app.post('/getOrders', function(req, res){ 
+    console.log("order placed");
     res.setHeader('Content-Type', 'application/json');
     admin.auth().verifyIdToken(req.body.idtoken).then(function(decodedToken) {
         console.log("authentication worked");
