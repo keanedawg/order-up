@@ -197,4 +197,14 @@ app.get('/login', function(req, res){
     res.render('login.ejs');
 });
 
+
+// Middleware
+
+var authenticate = function (req, res, next) {
+    
+    // Do some authentication or something
+
+    next();
+}
+
 server.listen(process.env.PORT || 80, () => console.log('App is listening...'))
