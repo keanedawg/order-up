@@ -52,8 +52,7 @@ io.on('connection', function (socket) {
 var emailServer;
 var mailTransport;
 if (process.env.email) {
-    console.log("eh");
-    emailServer = process.env.email;
+    mailTransport = nodemailer.createTransport(process.env.email);
 }
 else {
     fs = require('fs')
