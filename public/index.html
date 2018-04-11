@@ -1,8 +1,0 @@
-<script src="/socket.io.js"></script>
-<script>
-  this.socket = io('/', {transports: ['websocket']});
-  socket.on('order-placed', function (data) {
-    console.log(data);
-    //socket.emit('my other event', { my: 'data' });
-  });
-</script>
