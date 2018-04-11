@@ -68,6 +68,7 @@ body {
 }
 
 .current_order {
+    padding-left: 5px;
     border-style: solid;
     border-width: 1px;
 }
