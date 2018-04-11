@@ -12,6 +12,16 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+
+    /* 
+        I set up the initial login token via the client talking directly to Firebase.
+        This seemed easier since I would  call the exact same service in nodejs had
+        I passed it to my server. Furthermore, I wasn't sure how my server would handle
+        my clients cookies (i.e. would Firebase grant a session to my client or my server). 
+        So I just authenticated directly from the client. 
+
+        Later on, I pass my authentication token to the nodejs server to check authentication.
+    */
     function logMeIn() {
         //Get
         var un = $('#un').val();
