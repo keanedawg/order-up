@@ -23,15 +23,6 @@ else {
     var serviceAccount = require("./rexburg_order_up.json");
 }
 
-
-// var firebaseApp = firebase.initializeApp({
-//   "apiKey":"AIzaSyDYhShY6r8950YkorA-w79-NNuIRjmx_Sw",
-//   "authDomain": "rexburg-order-up.firebaseapp.com",
-//   "databaseURL": "https://rexburg-order-up.firebaseio.com",
-//   "storageBucket": "rexburg-order-up.appspot.com"
-// });
-
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   "authDomain": "rexburg-order-up.firebaseapp.com",
