@@ -50,8 +50,8 @@ io.on('connection', function (socket) {
 // TO-DO: turn this into proper environment variable
 
 var mailTransport;
-if (process.env.emailsmtp) {
-    mailTransport = process.env.emailsmtp
+if (process.env.email) {
+    mailTransport = process.env.email;
 }
 else {
     fs = require('fs')
