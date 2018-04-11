@@ -52,20 +52,24 @@ io.on('connection', function (socket) {
 var emailServer;
 var mailTransport;
 if (process.env.email) {
+    console.log("eh");
     emailServer = process.env.email;
 }
 else {
     fs = require('fs')
     fs.readFile('email_smtps.txt', 'utf8', function (err,data) {
     if (err) {
+        console.log("error");
         return console.log(err);
     }
     console.log("read email data:" + data);
     emailServer = data;
+    console.log(emailServer);
+    mailTransport = nodemailer.createTransport(emailServer);
     });
 }
 
-mailTransport = nodemailer.createTransport(emailServer);
+
 
 
 /* WEB ENDPOINTS */
@@ -110,11 +114,14 @@ app.post('/makeOrder', function(req, res){
     if (req.body.email != null) {
         ref.child('Restaurants').child(req.body.restaurant).once('value').then(function (snapshot, err) {
             var result = snapshot.val();
+            if (req.body.name == null || req.body.name == "") {
+                req.body.name = "Anonymous";
+            }
             var mailOptions = {
                 from: '"Rexburg Ordering" <noreply@firebase.com>',
                 to: req.body.email,
                 subject: 'Your order to ' + result.name + ' has been placed!',
-                text: 'Dear ' + req.body.person + ',\n\nThank you for your purchase!\n\nYour order will be ready soon!\n\nRegards,\nRexburg Ordering'
+                text: 'Dear ' + req.body.name + ',\n\nThank you for your purchase!\n\nYour order will be ready soon!\n\nRegards,\nRexburg Ordering'
             };
             mailTransport.sendMail(mailOptions).then(function() {
                 console.log('Email notification sent');
