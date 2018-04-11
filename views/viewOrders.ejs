@@ -20,11 +20,10 @@
                             .done(function(result) {
                                 $.each(result, function( index, value ) {
                                         var menuOrder = '<div class="current_order">';
-                                        
-                                            if (value.name == null) {
+                                        if (value.name == null || value.name === '') {
                                             value.name = "anonymous";
                                         }
-                                        if (value.email == null) {
+                                        if (value.email == null || value.email === '') {
                                             value.email = "N/A";
                                         }
                                         menuOrder += '<h4 class="order_name">Order for ' + value.name + ' at ' + value.email + '</h4>'
@@ -76,13 +75,13 @@ function openOrder(result) {
     modal.style.display = "block";
     playSound('definite');
     var myNewOrderDisplay = '<div class="newOrder">';
-    if (value.name == null) {
-        value.name = "anonymous";
+    if (result.name == null || result.name === "") {
+        result.name = "anonymous";
     }
-    if (value.email == null) {
-        value.email = "N/A";
+    if (result.email == null || result.email === "") {
+        result.email = "N/A";
     }
-    myNewOrderDisplay += '<h4 class="order_name">New Order for ' + value.name + ' at ' + value.email + '</h4>'
+    myNewOrderDisplay += '<h4 class="order_name">New Order for ' + result.name + ' at ' + result.email + '</h4>'
     $.each(result.menuItemsOrdered, function( indexNum, foodItem )  {
         myNewOrderDisplay += '<p class="new_order_item">' + foodItem + '</p>';
     });
