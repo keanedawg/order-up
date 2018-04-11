@@ -48,7 +48,21 @@ io.on('connection', function (socket) {
 
 // Throwaway email account
 // TO-DO: turn this into proper environment variable
-var mailTransport = nodemailer.createTransport('smtps://rexburgorderingup%40gmail.com:foodles2@smtp.gmail.com');
+
+var mailTransport;
+if (process.env.emailsmtp) {
+    mailTransport = process.env.emailsmtp
+}
+else {
+    fs = require('fs')
+    fs.readFile('email_smtps.txt', 'utf8', function (err,data) {
+    if (err) {
+        return console.log(err);
+    }
+    console.log("read email data");
+    mailTransport = data;
+    });
+}
 
 
 /* WEB ENDPOINTS */
