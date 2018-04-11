@@ -12,10 +12,6 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
-// var firebase = require("firebase/app");
-// require('firebase/auth');
-// require('firebase/database');
-// require('firebase/storage');
 
 
 var nodemailer = require("nodemailer");
