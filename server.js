@@ -186,7 +186,7 @@ app.get('/login', function(req, res){
 
 
 // Middleware
-
+// TO DO: It would be super neat to not have to authenticate directly inside my endpoints.
 var authenticate = function (req, res, next) {
     
     // Do some authentication or something
