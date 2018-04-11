@@ -13,7 +13,6 @@ var io = require('socket.io')(server);
 
 var admin = require("firebase-admin");
 
-
 var nodemailer = require("nodemailer");
 
 if (process.env.firebase_admin_key) {
@@ -84,8 +83,8 @@ app.post('/makeOrder', function(req, res){
 
     var orderObj = {
                     "created": Date(),
-                    // "name": req.body.name,
-                    // "email": req.body.email,
+                    "name": req.body.name,
+                    "email": req.body.email,
                     "restaurant_id": req.body.restaurant, 
                     "menuItemsOrdered": menuItemsOrdered};
 
@@ -106,7 +105,7 @@ app.post('/makeOrder', function(req, res){
         });
     }
 
-    // sending to all clients in 'game' room, including sender
+    // sending to all clients in 'restaurnt_ids' room
     io.emit(req.body.restaurant, orderObj);
     console.log("I emitted");
 
