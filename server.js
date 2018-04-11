@@ -49,9 +49,10 @@ io.on('connection', function (socket) {
 // Throwaway email account
 // TO-DO: turn this into proper environment variable
 
+var emailServer;
 var mailTransport;
 if (process.env.email) {
-    mailTransport = process.env.email;
+    emailServer = process.env.email;
 }
 else {
     fs = require('fs')
@@ -59,10 +60,12 @@ else {
     if (err) {
         return console.log(err);
     }
-    console.log("read email data");
-    mailTransport = data;
+    console.log("read email data:" + data);
+    emailServer = data;
     });
 }
+
+mailTransport = nodemailer.createTransport(emailServer);
 
 
 /* WEB ENDPOINTS */
